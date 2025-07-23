@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Land & Bowling - لوحة التحكم</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="logo-upload">
+                <img id="restaurant-logo" src="../shared/images/logo.png" alt="Family Land & Bowling">
+                <input type="file" id="logo-upload" accept="image/*">
+                <button id="change-logo-btn">تغيير الشعار</button>
+            </div>
+            <h1>لوحة تحكم Family Land & Bowling</h1>
+            <div class="language-switcher">
+                <button id="switch-lang" data-lang="ar">English</button>
+            </div>
+        </header>
+
+        <div class="admin-main">
+            <aside class="admin-sidebar">
+                <nav>
+                    <ul>
+                        <li class="active"><a href="#categories-section"><i class="fas fa-list"></i> التصنيفات</a></li>
+                        <li><a href="#background-section"><i class="fas fa-image"></i> خلفية الزبائن</a></li>
+                        <li><a href="#settings-section"><i class="fas fa-cog"></i> الإعدادات</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="admin-content">
+                <section id="categories-section" class="active-section">
+                    <h2><i class="fas fa-list"></i> إدارة التصنيفات</h2>
+                    <div class="reorder-instructions">
+                        <p>اسحب وأسقط لترتيب التصنيفات كما تريد</p>
+                    </div>
+                    <div id="categories-list" class="sortable-list">
+                        <!-- سيتم ملؤها بالتصنيفات عبر JavaScript -->
+                    </div>
+                    <button id="add-category-btn" class="btn-primary"><i class="fas fa-plus"></i> إضافة تصنيف جديد</button>
+                </section>
+
+                <section id="background-section">
+                    <h2><i class="fas fa-image"></i> خلفية واجهة الزبائن</h2>
+                    <div class="background-preview" id="background-preview">
+                        <!-- معاينة الخلفية -->
+                    </div>
+                    <div class="background-controls">
+                        <input type="file" id="bg-upload" accept="image/*">
+                        <button id="change-bg-btn" class="btn-primary">تغيير الخلفية</button>
+                        <button id="reset-bg-btn" class="btn-secondary">إعادة الضبط</button>
+                    </div>
+                </section>
+
+                <section id="settings-section">
+                    <h2><i class="fas fa-cog"></i> إعدادات النظام</h2>
+                    <div class="settings-form">
+                        <div class="form-group">
+                            <label for="restaurant-name">اسم المطعم:</label>
+                            <input type="text" id="restaurant-name" value="Family Land & Bowling">
+                        </div>
+                        <div class="form-group">
+                            <label for="copyright-text">نص حقوق الملكية:</label>
+                            <input type="text" id="copyright-text" value="جميع الحقوق محفوظة">
+                        </div>
+                        <div class="form-group">
+                            <label for="currency-symbol">رمز العملة:</label>
+                            <input type="text" id="currency-symbol" value="₪" maxlength="3">
+                        </div>
+                        <button id="save-settings-btn" class="btn-primary">حفظ الإعدادات</button>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="admin-footer">
+            <p>جميع الحقوق محفوظة &copy; <span id="footer-year"></span> | By Laith Sabbah</p>
+        </footer>
+    </div>
+
+    <!-- نافذة إضافة/تعديل تصنيف -->
+    <div id="category-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modal-title">إضافة تصنيف جديد</h3>
+            <form id="category-form">
+                <input type="hidden" id="category-id">
+                <div class="form-group">
+                    <label for="category-name-ar">اسم التصنيف (عربي):</label>
+                    <input type="text" id="category-name-ar" required>
+                </div>
+                <div class="form-group">
+                    <label for="category-name-en">اسم التصنيف (إنجليزي):</label>
+                    <input type="text" id="category-name-en" required>
+                </div>
+                <div class="form-group">
+                    <label for="category-image">صورة التصنيف:</label>
+                    <input type="file" id="category-image" accept="image/*">
+                    <div class="image-preview" id="category-image-preview"></div>
+                </div>
+                <div class="form-group">
+                    <label for="category-visible">الحالة:</label>
+                    <select id="category-visible">
+                        <option value="visible">ظاهر للزبائن</option>
+                        <option value="hidden">مخفي عن الزبائن</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">حفظ</button>
+                    <button type="button" class="btn-secondary close-modal">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة إدارة أصناف التصنيف -->
+    <div id="items-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="items-modal-title">إدارة أصناف <span id="current-category-name"></span></h3>
+            <div class="items-list-container">
+                <div id="items-list">
+                    <!-- سيتم ملؤها بالأصناف عبر JavaScript -->
+                </div>
+                <button id="add-item-btn" class="btn-primary"><i class="fas fa-plus"></i> إضافة صنف جديد</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة/تعديل صنف -->
+    <div id="item-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="item-modal-title">إضافة صنف جديد</h3>
+            <form id="item-form">
+                <input type="hidden" id="item-id">
+                <input type="hidden" id="item-category-id">
+                <div class="form-group">
+                    <label for="item-name-ar">اسم الصنف (عربي):</label>
+                    <input type="text" id="item-name-ar" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-name-en">اسم الصنف (إنجليزي):</label>
+                    <input type="text" id="item-name-en" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-price">السعر (<span class="currency-symbol">₪</span>):</label>
+                    <input type="number" id="item-price" min="0" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-description-ar">الوصف (عربي):</label>
+                    <textarea id="item-description-ar" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="item-description-en">الوصف (إنجليزي):</label>
+                    <textarea id="item-description-en" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="item-image">صورة الصنف:</label>
+                    <input type="file" id="item-image" accept="image/*">
+                    <div class="image-preview" id="item-image-preview"></div>
+                </div>
+                <div class="form-group">
+                    <label for="item-visible">الحالة:</label>
+                    <select id="item-visible">
+                        <option value="visible">ظاهر للزبائن</option>
+                        <option value="hidden">مخفي عن الزبائن</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">حفظ</button>
+                    <button type="button" class="btn-secondary close-modal">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script src="../shared/shared.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

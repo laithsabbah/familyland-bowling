@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Land & Bowling - قائمة الطعام</title>
+    <link rel="stylesheet" href="customer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="restaurant-background" id="restaurant-background">
+        <!-- سيتم تعيين الخلفية عبر JavaScript -->
+    </div>
+
+    <div class="customer-container">
+        <header class="customer-header">
+            <img id="customer-logo" src="../shared/images/logo.png" alt="Family Land & Bowling">
+            <h1 id="restaurant-title">Family Land & Bowling</h1>
+        </header>
+
+        <main class="customer-main">
+            <div class="language-switcher">
+                <button id="customer-lang-switch" data-lang="ar">English</button>
+            </div>
+
+            <div class="categories-container" id="categories-container">
+                <!-- سيتم ملؤها بالتصنيفات عبر JavaScript -->
+            </div>
+        </main>
+
+        <footer class="customer-footer">
+            <p id="copyright-text">جميع الحقوق محفوظة &copy; <span id="customer-year"></span> | By Laith Sabbah</p>
+        </footer>
+    </div>
+
+    <!-- نافذة أصناف التصنيف -->
+    <div id="items-modal" class="customer-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="category-modal-title">اسم التصنيف</h3>
+            <div class="items-list" id="customer-items-list">
+                <!-- سيتم ملؤها بالأصناف عبر JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/shared.js"></script>
+    <script src="customer.js"></script>
+</body>
+</html>
